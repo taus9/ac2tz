@@ -1,8 +1,19 @@
 const express = require("express");
+const rateLimit = require("express-rate-limit");
+
 const npaReport = require("./reports");
 
 const app = express();
 
+const limiter = rateLimit({
+  windowMs: 60 * 1000,
+  max: 60,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { ERROR: "Too many request, please try again later" }
+});
+
+app.use(limiter);
 app.use(express.json());
 
 app.get("/codes/:areaCodes", (req, res) => {
