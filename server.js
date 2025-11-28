@@ -4,6 +4,7 @@ const rateLimit = require("express-rate-limit");
 const npaReport = require("./reports");
 
 const app = express();
+const port = process.env.PORT || 4000;
 
 const limiter = rateLimit({
   windowMs: 60 * 1000,
@@ -42,5 +43,5 @@ app.get("/codes/:areaCodes", (req, res) => {
     return res.json(reports);
 });
 
-app.listen(3000, () => console.log("API running on port 3000"));
+app.listen(port, () => console.log(`API running on port ${port}`));
 
